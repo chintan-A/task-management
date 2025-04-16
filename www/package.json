@@ -1,0 +1,31 @@
+{
+  "name": "task-management-app",
+  "version": "1.0.0",
+  "description": "A secure and powerful task management application",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p 8000",
+    "generate-icons": "node icons/generate-icons.js",
+    "build": "npm install && npm run generate-icons",
+    "dev": "http-server -p 8000",
+    "cap:init": "npx cap init TaskManager com.taskmanager.app --web-dir .",
+    "cap:add:android": "npx cap add android",
+    "cap:add:ios": "npx cap add ios",
+    "cap:sync": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios",
+    "build:mobile": "npm run build && npm run cap:sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/core": "^5.0.0",
+    "@capacitor/ios": "^5.0.0",
+    "@capacitor/splash-screen": "^5.0.0",
+    "@capacitor/status-bar": "^5.0.0",
+    "http-server": "^14.1.1",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.0.0"
+  }
+}

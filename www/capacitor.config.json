@@ -1,0 +1,27 @@
+{
+  "appId": "com.taskmanager.app",
+  "appName": "TaskManager",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#4CAF50",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": true,
+      "spinnerColor": "#ffffff",
+      "splashFullScreen": true,
+      "splashImmersive": true
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#4CAF50"
+    }
+  },
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https",
+    "hostname": "app"
+  }
+}

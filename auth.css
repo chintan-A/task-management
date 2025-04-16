@@ -1,0 +1,389 @@
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-card h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.auth-form .form-group {
+    margin-bottom: 20px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.password-input {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.password-strength {
+    margin-top: 8px;
+}
+
+.strength-meter {
+    height: 4px;
+    background-color: #ddd;
+    border-radius: 2px;
+    margin-bottom: 4px;
+    overflow: hidden;
+}
+
+.strength-meter::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0;
+    background-color: #dc3545;
+    transition: width 0.3s, background-color 0.3s;
+}
+
+.strength-meter.weak::before {
+    width: 33%;
+    background-color: #dc3545;
+}
+
+.strength-meter.medium::before {
+    width: 66%;
+    background-color: #ffc107;
+}
+
+.strength-meter.strong::before {
+    width: 100%;
+    background-color: #28a745;
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: auto;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    min-height: 20px;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.auth-form button:hover {
+    opacity: 0.9;
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-color);
+}
+
+.auth-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Picture Input */
+.auth-form input[type="file"] {
+    display: none;
+}
+
+.auth-form label[for="profilePicture"] {
+    display: inline-block;
+    padding: 12px;
+    background-color: var(--background-color);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.auth-form label[for="profilePicture"]:hover {
+    border-color: var(--primary-color);
+}
+
+/* Profile Page Styles */
+.profile-card {
+    max-width: 500px;
+}
+
+.profile-picture-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#currentProfilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    padding: 3px;
+}
+
+.profile-picture-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.upload-btn:hover {
+    opacity: 0.9;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.back-btn:hover {
+    color: var(--primary-color);
+}
+
+.save-btn {
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: opacity 0.3s;
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+.danger-zone {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--shadow-color);
+}
+
+.danger-zone h2 {
+    color: #dc3545;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.danger-zone p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: opacity 0.3s;
+}
+
+.delete-btn:hover {
+    opacity: 0.9;
+}
+
+.avatar-options {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--shadow-color);
+    border-radius: 8px;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+    width: 40px;
+    height: 20px;
+    appearance: none;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-label input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+}
+
+.toggle-label input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.toggle-label input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}
+
+.note {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 10px 0;
+}
+
+@media (max-width: 480px) {
+    .profile-picture-section {
+        padding: 10px;
+    }
+
+    #currentProfilePic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .avatar-options {
+        margin-top: 15px;
+        padding: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .upload-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* iOS-specific styles */
+@supports (-webkit-touch-callout: none) {
+    .toggle-label input[type="checkbox"] {
+        background-color: #e9e9eb;
+    }
+
+    .toggle-label input[type="checkbox"]:checked {
+        background-color: #34c759;
+    }
+
+    .save-btn {
+        border-radius: 8px;
+    }
+}
+
+/* Android-specific styles */
+@supports not (-webkit-touch-callout: none) {
+    .toggle-label input[type="checkbox"] {
+        background-color: rgba(0, 0, 0, 0.38);
+    }
+
+    .toggle-label input[type="checkbox"]:checked {
+        background-color: #6200ee;
+    }
+
+    .save-btn {
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}

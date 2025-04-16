@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="theme-switch">
+        <input type="checkbox" id="theme-toggle">
+        <label for="theme-toggle" class="theme-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </label>
+    </div>
+
+    <nav class="user-nav">
+        <div class="user-profile">
+            <a href="profile.html" class="profile-link">
+                <img id="userAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ccc' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E" alt="User Avatar">
+                <span id="username">Loading...</span>
+            </a>
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Install prompt -->
+        <div id="installPrompt" class="install-prompt" style="display: none;">
+            <div class="install-content">
+                <i class="fas fa-download"></i>
+                <div class="install-text">
+                    <h3>Install Task Manager</h3>
+                    <p>Add to your device for quick access</p>
+                </div>
+                <button id="installButton" class="install-button">Install</button>
+                <button id="closeInstallPrompt" class="close-button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <h1>Task Management</h1>
+        
+        <!-- Task Form -->
+        <div class="task-form">
+            <h2>Add New Task</h2>
+            <form id="taskForm">
+                <input type="text" id="taskName" placeholder="Task Name" required>
+                <textarea id="taskDescription" placeholder="Task Description" required></textarea>
+                <input type="date" id="taskDueDate" required>
+                <select id="taskPriority" required>
+                    <option value="">Select Priority</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <input type="text" id="taskTags" placeholder="Tags (comma-separated)">
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+
+        <!-- Task Statistics -->
+        <div class="task-stats">
+            <div class="stat-card total">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-card completed">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card overdue">
+                <div class="stat-number" id="overdueTasks">0</div>
+                <div class="stat-label">Overdue</div>
+            </div>
+            <div class="stat-card in-progress">
+                <div class="stat-number" id="inProgressTasks">0</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+        </div>
+
+        <!-- Task Filters -->
+        <div class="filters">
+            <select id="filterStatus" class="filter-select">
+                <option value="all">All Tasks</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+                <option value="overdue">Overdue</option>
+                <option value="in-progress">In Progress</option>
+            </select>
+            <select id="filterPriority" class="filter-select">
+                <option value="all">All Priorities</option>
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+            </select>
+            <select id="sortBy" class="filter-select">
+                <option value="dueDate">Sort by Due Date</option>
+                <option value="priority">Sort by Priority</option>
+                <option value="status">Sort by Status</option>
+                <option value="created">Sort by Created Date</option>
+            </select>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-container">
+            <div id="taskList" class="task-list">
+                <!-- Empty state -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-tasks"></i>
+                    <h3>No Tasks Found</h3>
+                    <p>Add a new task to get started!</p>
+                </div>
+                <!-- Tasks will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="secure-store.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Register service worker with proper error handling
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw.js', {
+                        scope: '/',
+                        updateViaCache: 'none'
+                    });
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    
+                    // Handle updates
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // New content is available
+                                showToast('App update available! Refresh to update.');
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error('ServiceWorker registration failed: ', error);
+                }
+            });
+
+            // Handle service worker updates
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
+        }
+
+        // Handle PWA installation with error handling
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+        const installButton = document.getElementById('installButton');
+        const closeInstallPrompt = document.getElementById('closeInstallPrompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            try {
+                e.preventDefault();
+                deferredPrompt = e;
+                installPrompt.style.display = 'block';
+            } catch (error) {
+                console.error('Install prompt error:', error);
+            }
+        });
+
+        if (installButton) {
+            installButton.addEventListener('click', async () => {
+                try {
+                    if (!deferredPrompt) return;
+                    const result = await deferredPrompt.prompt();
+                    console.log('Install prompt result:', result);
+                    deferredPrompt = null;
+                    installPrompt.style.display = 'none';
+                } catch (error) {
+                    console.error('Install button error:', error);
+                    showToast('Installation failed. Please try again.');
+                }
+            });
+        }
+
+        if (closeInstallPrompt) {
+            closeInstallPrompt.addEventListener('click', () => {
+                installPrompt.style.display = 'none';
+            });
+        }
+
+        // Handle app installed event
+        window.addEventListener('appinstalled', (event) => {
+            try {
+                installPrompt.style.display = 'none';
+                deferredPrompt = null;
+                showToast('App installed successfully!');
+                console.log('App was installed', event);
+            } catch (error) {
+                console.error('App install event error:', error);
+            }
+        });
+
+        // Show toast messages
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

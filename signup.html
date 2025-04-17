@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;">
     <title>Sign Up - Task Management App</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
@@ -21,19 +21,19 @@
     <div class="auth-container">
         <div class="auth-card">
             <h1>Sign Up</h1>
-            <form id="signupForm" class="auth-form">
+            <form id="signupForm" class="auth-form" autocomplete="on">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" required>
+                    <input type="text" id="username" name="username" autocomplete="username" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="password-input">
-                        <input type="password" id="password" required>
+                        <input type="password" id="password" name="password" autocomplete="new-password" required>
                         <i class="fas fa-eye toggle-password"></i>
                     </div>
                     <div class="password-strength">
@@ -43,12 +43,12 @@
                 </div>
                 <div class="form-group">
                     <label for="profilePicture">Profile Picture</label>
-                    <input type="file" id="profilePicture" accept="image/*">
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
                 </div>
                 <div id="signupError" class="error-message"></div>
                 <button type="submit">Sign Up</button>
             </form>
-            <p class="auth-link">Already have an account? <a href="login.html">Login</a></p>
+            <p class="auth-link">Already have an account? <a href="login.html" onclick="window.location.href='login.html'">Login</a></p>
         </div>
     </div>
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data:; font-src 'self' https://cdnjs.cloudflare.com;">
     <title>Login - Task Management App</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
@@ -39,11 +40,21 @@
                 <div id="loginError" class="error-message"></div>
                 <button type="submit">Login</button>
             </form>
-            <p class="auth-link">Don't have an account? <a href="signup.html" onclick="window.location.href='signup.html'">Sign up</a></p>
+            <p class="auth-link">Don't have an account? <a href="signup.html" id="signupLink">Sign up</a></p>
         </div>
     </div>
 
     <script src="secure-store.js"></script>
     <script src="auth.js"></script>
+    <script>
+        // Function to handle navigation
+        function navigateToSignup(e) {
+            e.preventDefault();
+            window.location.href = 'signup.html';
+        }
+
+        // Add event listener to signup link
+        document.getElementById('signupLink').addEventListener('click', navigateToSignup);
+    </script>
 </body>
 </html>

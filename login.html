@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;">
     <title>Login - Task Management App</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
@@ -20,26 +21,26 @@
     <div class="auth-container">
         <div class="auth-card">
             <h1>Login</h1>
-            <form id="loginForm" class="auth-form">
+            <form id="loginForm" class="auth-form" autocomplete="on">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="password-input">
-                        <input type="password" id="password" required>
+                        <input type="password" id="password" name="password" autocomplete="current-password">
                         <i class="fas fa-eye toggle-password"></i>
                     </div>
                 </div>
                 <div class="form-group remember-me">
-                    <input type="checkbox" id="rememberMe">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
                     <label for="rememberMe">Remember me</label>
                 </div>
                 <div id="loginError" class="error-message"></div>
                 <button type="submit">Login</button>
             </form>
-            <p class="auth-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+            <p class="auth-link">Don't have an account? <a href="signup.html" onclick="window.location.href='signup.html'">Sign up</a></p>
         </div>
     </div>
 

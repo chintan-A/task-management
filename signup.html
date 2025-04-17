@@ -47,11 +47,21 @@
                 <div id="signupError" class="error-message"></div>
                 <button type="submit">Sign Up</button>
             </form>
-            <p class="auth-link">Already have an account? <a href="login.html" onclick="window.location.href='login.html'">Login</a></p>
+            <p class="auth-link">Already have an account? <a href="login.html" id="loginLink">Login</a></p>
         </div>
     </div>
 
     <script src="secure-store.js"></script>
     <script src="auth.js"></script>
+    <script>
+        // Function to handle navigation
+        function navigateToLogin(e) {
+            e.preventDefault();
+            window.location.href = 'login.html';
+        }
+
+        // Add event listener to login link
+        document.getElementById('loginLink').addEventListener('click', navigateToLogin);
+    </script>
 </body>
 </html>
